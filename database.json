@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1781946551712,
+    "title": "Tommy hilfiger Futbolka",
+    "price": 229000,
+    "images": [
+      "/uploads/1781946544004-196116.jpg"
+    ],
+    "fabric": "100% Paxta (Xlopok)",
+    "sizes": "M, L, XL,",
+    "category": "Futbolka",
+    "stock": 25
+  },
+  {
+    "id": 1781947109417,
+    "title": "dior krassofka",
+    "price": 690000,
+    "images": [
+      "/uploads/1781947048922-43196.jpg",
+      "/uploads/1781947051978-351136.jpg",
+      "/uploads/1781947055218-550571.jpg"
+    ],
+    "fabric": "classic",
+    "sizes": "38,39,40,41,42,43,44",
+    "category": "Krassofka",
+    "stock": 15
+  },
+  {
+    "id": 1781983277861,
+    "title": "Loro piano",
+    "price": 690000,
+    "images": [
+      "/uploads/1781983242086-776796.jpg"
+    ],
+    "fabric": "100% Paxta (Xlopok)",
+    "sizes": "39,40,41,42,43.",
+    "category": "Loaferlar",
+    "stock": 8
+  }
+]
