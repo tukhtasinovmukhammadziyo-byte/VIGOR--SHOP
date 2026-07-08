@@ -12,6 +12,25 @@ const PORT = process.env.PORT || 3001;
 const DB_FILE = path.join(__dirname, 'database.json');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 
+// CORS — frontendga ruxsat berish (Netlify, Vercel yoki localhost)
+const ALLOWED_ORIGINS = [
+  'http://localhost:3001',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
+  process.env.FRONTEND_URL  // Render environment variable
+].filter(Boolean);
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+
 // Uploads papkasini tekshirish
 if (!fs.existsSync(UPLOADS_DIR)) {
     fs.mkdirSync(UPLOADS_DIR);
@@ -39,7 +58,7 @@ const upload = multer({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+// Static fayllar faqat uploads uchun (frontend alohida hostingda)
 app.use('/uploads', express.static(UPLOADS_DIR));
 
 // ==========================================
