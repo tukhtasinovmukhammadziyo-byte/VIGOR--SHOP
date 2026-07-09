@@ -1639,13 +1639,14 @@ function onPriceFilter(val){
 }
 
 // ── Category Filter ───────────────────
-function filterCat(cat){
+function setCategory(cat){
   activeCategory = cat;
-  document.querySelectorAll('.cat-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
   var el = document.getElementById('cat-' + cat);
   if(el) el.classList.add('active');
   renderShop();
 }
+function filterCat(cat){ setCategory(cat); }
 
 // ── Search ────────────────────────────
 function onSearch(val){
