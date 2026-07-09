@@ -58,8 +58,14 @@ const upload = multer({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Static fayllar faqat uploads uchun (frontend alohida hostingda)
+// Static fayllar
 app.use('/uploads', express.static(UPLOADS_DIR));
+app.use(express.static(__dirname));
+
+// Frontend asosiy sahifasi
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // ==========================================
 // RASM YUKLASH API
