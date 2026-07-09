@@ -336,6 +336,35 @@
       .bottom-nav { display:block; }
       .main-content { padding-bottom:72px; }
       .toast-container { bottom:88px; }
+
+      /* Navbar kichikroq */
+      .navbar { padding:8px 12px !important; }
+
+      /* Filter chips scrollable */
+      #filterBar { overflow-x:auto; -webkit-overflow-scrolling:touch; flex-wrap:nowrap !important; padding-bottom:4px; }
+      .filter-chip { white-space:nowrap; font-size:0.72rem !important; padding:6px 10px !important; }
+
+      /* Products grid — 2 ta ustun */
+      #productsGrid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
+
+      /* Karta */
+      .product-card { border-radius:12px !important; }
+      .product-card img { height:160px !important; }
+
+      /* Modal kichikroq */
+      .modal-box { padding:18px !important; border-radius:18px !important; margin:8px !important; }
+
+      /* Narx va tugma kichikroq */
+      main { padding:12px 10px 32px !important; }
+
+      /* Slider (hero) kichikroq */
+      #heroSlider { height:180px !important; }
+    }
+
+    @media (max-width: 380px) {
+      /* Kichik telefonlar uchun 2 ustun ham moslashtirish */
+      #productsGrid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
+      .product-card img { height:130px !important; }
     }
 
     /* ══ LANG SWITCHER ══ */
@@ -750,7 +779,7 @@
   <div class="filter-bar sticky top-[60px] z-40 py-3 px-4 shadow-sm" id="shopSection">
     <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
       <!-- Kategoriya chips -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+      <div id="filterBar" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;">
         <button class="filter-chip active" onclick="setCategory('Barchasi')" id="cat-Barchasi">Barchasi</button>
         <button class="filter-chip" onclick="setCategory('Futbolka')" id="cat-Futbolka">👕 Futbolka</button>
         <button class="filter-chip" onclick="setCategory('Ko\'ylak')" id="cat-Ko'ylak">👔 Ko'ylak</button>
@@ -789,7 +818,7 @@
 
   <!-- PRODUCTS GRID -->
   <main style="flex:1;max-width:1280px;margin:0 auto;padding:32px 16px;width:100%;">
-    <div id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;"></div>
+    <div id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,45vw),1fr));gap:24px;"></div>
   </main>
 
   <!-- FOOTER -->
