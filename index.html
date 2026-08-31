@@ -647,7 +647,7 @@
       <!-- Telegram aloqa -->
       <div style="background:linear-gradient(135deg,rgba(196,154,34,0.1),rgba(212,168,67,0.05));border:1.5px solid rgba(212,168,67,0.3);border-radius:14px;padding:16px;text-align:center;">
         <p style="font-size:0.82rem;color:var(--text2);">📞 Yetkazib berish bo'yicha savollar uchun Telegram orqali bog'laning</p>
-        <button onclick="window.open('https://t.me/mkhmdz','_blank')" style="margin-top:12px;padding:10px 24px;background:#C49A22;color:#1a1a1a;border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;">✈️ @mkhmdz</button>
+        <button onclick="window.open('https://t.me/Aurex_111','_blank')" style="margin-top:12px;padding:10px 24px;background:#C49A22;color:#1a1a1a;border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;">✈️ @Aurex_111</button>
       </div>
     </div>
   </div>
@@ -1315,7 +1315,7 @@ function orderCartTelegram(){
   }).filter(Boolean);
   var total = cart.reduce(function(s,it){var p=products.find(function(x){return x.id===it.id;});return s+(p?p.price*(it.qty||1):0);},0);
   var text = t('orderMsg')+'\n\n'+lines.join('\n')+'\n\n'+t('total')+' '+fmt(total);
-  window.open('https://t.me/mkhmdz?text='+encodeURIComponent(text),'_blank');
+  window.open('https://t.me/Aurex_111?text='+encodeURIComponent(text),'_blank');
 }
 
 // ── Wishlist ──────────────────────────
@@ -1574,7 +1574,7 @@ function orderTelegram(id){
   var p = products.find(function(x){return x.id===id;}); if(!p) return;
   var sizeInfo = window._selectedSize ? '\n📏 '+t('labelSizes')+': '+window._selectedSize : '';
   var text = t('orderMsg')+'\n\n'+p.title+'\n'+t('total')+' '+fmt(p.price)+'\n'+t('labelFabric')+': '+(p.fabric||'')+sizeInfo;
-  window.open('https://t.me/mkhmdz?text='+encodeURIComponent(text),'_blank');
+  window.open('https://t.me/Aurex_111?text='+encodeURIComponent(text),'_blank');
 }
 
 // ── Helper: rasmlar ──────────────────
