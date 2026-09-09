@@ -440,6 +440,185 @@
     .pay-tab.active { background:#D4A843; color:#1a1a1a; }
     .pay-tab:not(.active) { background:var(--bg3); color:var(--text2); }
     .qr-frame { border:3px solid #D4A843; border-radius:16px; padding:12px; display:inline-block; background:#fff; }
+
+    /* ══ MUSIC PLAYER ══ */
+    #musicPlayer {
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      z-index:9000;
+      width:280px;
+      background:linear-gradient(145deg, #0f0d08, #1a1508);
+      border:1px solid rgba(212,168,67,0.35);
+      border-radius:20px;
+      padding:16px 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,168,67,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter:blur(20px);
+      transform:translateY(120%);
+      opacity:0;
+      transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+    }
+    #musicPlayer.show {
+      transform:translateY(0);
+      opacity:1;
+    }
+    #musicPlayer.minimized {
+      width:56px;
+      height:56px;
+      padding:0;
+      border-radius:50%;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    #musicPlayer.minimized .mp-body { display:none; }
+    #musicPlayer.minimized #mpMinimizedIcon {
+      display:flex !important;
+      width:56px; height:56px;
+      align-items:center; justify-content:center;
+      font-size:1.4rem;
+      animation:mp-pulse 2s ease-in-out infinite;
+    }
+    @keyframes mp-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,0.4)} 50%{box-shadow:0 0 0 12px rgba(212,168,67,0)} }
+
+    .mp-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .mp-brand {
+      font-size:0.6rem;
+      font-weight:800;
+      letter-spacing:0.35em;
+      color:#D4A843;
+      text-transform:uppercase;
+    }
+    .mp-controls-top {
+      display:flex;
+      gap:6px;
+    }
+    .mp-btn-sm {
+      width:22px; height:22px;
+      border:none; background:rgba(212,168,67,0.12);
+      border-radius:50%; cursor:pointer;
+      color:rgba(212,168,67,0.7);
+      font-size:0.6rem;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.2s;
+    }
+    .mp-btn-sm:hover { background:rgba(212,168,67,0.25); color:#D4A843; }
+
+    /* Vinyl disc */
+    .mp-disc-wrap {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .mp-disc {
+      width:52px; height:52px;
+      border-radius:50%;
+      background:conic-gradient(#1a1305 0deg 45deg, #2d2008 45deg 90deg, #1a1305 90deg 135deg, #2d2008 135deg 180deg, #1a1305 180deg 225deg, #2d2008 225deg 270deg, #1a1305 270deg 315deg, #2d2008 315deg 360deg);
+      box-shadow: 0 0 0 3px #D4A843, 0 0 0 5px #0f0d08, 0 0 20px rgba(212,168,67,0.3);
+      flex-shrink:0;
+      position:relative;
+      transition:animation 0.3s;
+    }
+    .mp-disc.spinning { animation:mp-spin 4s linear infinite; }
+    .mp-disc::after {
+      content:'';
+      position:absolute;
+      inset:35%;
+      border-radius:50%;
+      background:#D4A843;
+      box-shadow:0 0 6px rgba(212,168,67,0.5);
+    }
+    @keyframes mp-spin { to{transform:rotate(360deg)} }
+
+    .mp-track-info { flex:1; min-width:0; }
+    .mp-track-name {
+      font-size:0.75rem;
+      font-weight:700;
+      color:#f5f0e8;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      margin-bottom:3px;
+    }
+    .mp-track-sub {
+      font-size:0.6rem;
+      color:rgba(212,168,67,0.6);
+      letter-spacing:0.1em;
+    }
+
+    /* Progress bar */
+    .mp-progress {
+      width:100%;
+      height:3px;
+      background:rgba(212,168,67,0.15);
+      border-radius:2px;
+      margin-bottom:12px;
+      cursor:pointer;
+      position:relative;
+    }
+    .mp-progress-fill {
+      height:100%;
+      background:linear-gradient(90deg,#8B6914,#F0C860);
+      border-radius:2px;
+      width:0%;
+      transition:width 0.3s linear;
+    }
+
+    /* Controls */
+    .mp-controls {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .mp-btn {
+      width:36px; height:36px;
+      border:none; cursor:pointer;
+      border-radius:50%;
+      background:rgba(212,168,67,0.1);
+      color:#D4A843;
+      font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.2s;
+    }
+    .mp-btn:hover { background:rgba(212,168,67,0.25); transform:scale(1.1); }
+    .mp-btn-play {
+      width:46px; height:46px;
+      background:linear-gradient(135deg,#C49A22,#F0C860);
+      color:#0f0d08;
+      font-size:1.1rem;
+      box-shadow:0 4px 16px rgba(212,168,67,0.4);
+    }
+    .mp-btn-play:hover { background:linear-gradient(135deg,#D4A843,#FFD700); transform:scale(1.08); box-shadow:0 6px 20px rgba(212,168,67,0.6); }
+
+    /* Volume */
+    .mp-volume {
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .mp-vol-icon { font-size:0.7rem; color:rgba(212,168,67,0.5); }
+    .mp-vol-slider {
+      -webkit-appearance:none;
+      width:100%;
+      height:3px;
+      border-radius:2px;
+      background:rgba(212,168,67,0.15);
+      outline:none;
+    }
+    .mp-vol-slider::-webkit-slider-thumb {
+      -webkit-appearance:none;
+      width:12px; height:12px;
+      border-radius:50%;
+      background:#D4A843;
+      cursor:pointer;
+      box-shadow:0 0 6px rgba(212,168,67,0.5);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden">
@@ -465,6 +644,44 @@
   <div class="pl-line"></div>
   <p class="pl-sub">Men's Clothing Collection</p>
 </div>
+
+<!-- ═══ MUSIC PLAYER ═══ -->
+<div id="musicPlayer">
+  <!-- Minimized icon (shown when collapsed) -->
+  <div id="mpMinimizedIcon" style="display:none;" onclick="toggleMusicPlayer()">🎵</div>
+  <!-- Full player body -->
+  <div class="mp-body">
+    <div class="mp-header">
+      <span class="mp-brand">🎵 VIGOR Music</span>
+      <div class="mp-controls-top">
+        <button class="mp-btn-sm" onclick="toggleMusicPlayer()" title="Kichraytirish">─</button>
+      </div>
+    </div>
+    <div class="mp-disc-wrap">
+      <div class="mp-disc" id="mpDisc"></div>
+      <div class="mp-track-info">
+        <div class="mp-track-name" id="mpTrackName">Luxury Saxophone Jazz</div>
+        <div class="mp-track-sub">VIGOR Premium Mix</div>
+      </div>
+    </div>
+    <div class="mp-progress" id="mpProgress" onclick="seekMusic(event)">
+      <div class="mp-progress-fill" id="mpProgressFill"></div>
+    </div>
+    <div class="mp-controls">
+      <button class="mp-btn" onclick="prevTrack()" title="Oldingi">⏮</button>
+      <button class="mp-btn mp-btn-play" id="mpPlayBtn" onclick="togglePlay()">▶</button>
+      <button class="mp-btn" onclick="nextTrack()" title="Keyingi">⏭</button>
+    </div>
+    <div class="mp-volume">
+      <span class="mp-vol-icon">🔈</span>
+      <input type="range" class="mp-vol-slider" id="mpVolSlider" min="0" max="1" step="0.01" value="0.35" oninput="setVolume(this.value)">
+      <span class="mp-vol-icon">🔊</span>
+    </div>
+  </div>
+</div>
+
+<!-- Audio element -->
+<audio id="bgAudio" preload="none"></audio>
 
 <!-- ═══ PAYMENT MODAL ═══ -->
 <div class="pay-overlay" id="payOverlay">
@@ -2008,6 +2225,130 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'){closeCart();closeProduct();closeReviews();closePassModal();closeAdminModal();}
   });
+});
+
+// ═══════════════════════════════════════
+//  MUSIC PLAYER
+// ═══════════════════════════════════════
+var MP = {
+  tracks: [
+    {
+      name: 'Luxury Saxophone Jazz',
+      url:  'https://archive.org/download/luxury-saxophone-jazz-music-in-cozy-bar-jazz-bar-background-music-for-stress-relief-relax/Luxury%20Saxophone%20Jazz%20Music%20in%20Cozy%20Bar%20%E2%80%95%20Jazz%20Bar%20Background%20Music%20for%20Stress%20Relief%2C%20Relax.mp3'
+    },
+    {
+      name: 'Smooth Jazz Grooves',
+      url:  'https://archive.org/download/smooth-jazz-grooves-vol.-1-relaxing-chill-jazz-music/Smooth%20Jazz%20Grooves%20Vol.%201%20-%20Relaxing%20Chill%20Jazz%20Music.mp3'
+    },
+    {
+      name: 'Cool Jazz Lounge',
+      url:  'https://archive.org/download/cool-jazz-jazz-lounge-music-playist/Cool%20Jazz%20%E2%80%95%20Jazz%20Lounge%20Music%20Playlist.mp3'
+    }
+  ],
+  current: 0,
+  playing: false,
+  audio: null,
+  minimized: false,
+
+  init: function() {
+    this.audio = document.getElementById('bgAudio');
+    if (!this.audio) return;
+    this.audio.volume = 0.35;
+    this.audio.addEventListener('timeupdate', function(){
+      if(!MP.audio.duration) return;
+      var pct = (MP.audio.currentTime / MP.audio.duration) * 100;
+      var fill = document.getElementById('mpProgressFill');
+      if(fill) fill.style.width = pct + '%';
+    });
+    this.audio.addEventListener('ended', function(){ MP.nextTrack(); });
+    this.loadTrack(0);
+    // Show player after preloader exits
+    setTimeout(function(){
+      var p = document.getElementById('musicPlayer');
+      if(p) p.classList.add('show');
+    }, 4200);
+  },
+
+  loadTrack: function(idx) {
+    this.current = idx;
+    var t = this.tracks[idx];
+    var tn = document.getElementById('mpTrackName');
+    if(tn) tn.textContent = t.name;
+    this.audio.src = t.url;
+    if(this.playing) {
+      this.audio.play().catch(function(){});
+    }
+  }
+};
+
+function togglePlay() {
+  var btn = document.getElementById('mpPlayBtn');
+  var disc = document.getElementById('mpDisc');
+  if (!MP.audio) return;
+  if (MP.playing) {
+    MP.audio.pause();
+    MP.playing = false;
+    if(btn) btn.innerHTML = '▶';
+    if(disc) disc.classList.remove('spinning');
+  } else {
+    MP.audio.play().then(function(){
+      MP.playing = true;
+      if(btn) btn.innerHTML = '⏸';
+      if(disc) disc.classList.add('spinning');
+    }).catch(function(){ console.log('Audio play error'); });
+  }
+}
+
+function nextTrack() {
+  var next = (MP.current + 1) % MP.tracks.length;
+  MP.loadTrack(next);
+  if(MP.playing) {
+    MP.audio.play().catch(function(){});
+    document.getElementById('mpDisc').classList.add('spinning');
+    document.getElementById('mpPlayBtn').innerHTML = '⏸';
+  }
+}
+
+function prevTrack() {
+  if(MP.audio.currentTime > 3) {
+    MP.audio.currentTime = 0;
+    return;
+  }
+  var prev = (MP.current - 1 + MP.tracks.length) % MP.tracks.length;
+  MP.loadTrack(prev);
+  if(MP.playing) {
+    MP.audio.play().catch(function(){});
+    document.getElementById('mpDisc').classList.add('spinning');
+    document.getElementById('mpPlayBtn').innerHTML = '⏸';
+  }
+}
+
+function setVolume(val) {
+  if(MP.audio) MP.audio.volume = parseFloat(val);
+}
+
+function seekMusic(e) {
+  var bar = document.getElementById('mpProgress');
+  if(!bar || !MP.audio || !MP.audio.duration) return;
+  var rect = bar.getBoundingClientRect();
+  var pct = (e.clientX - rect.left) / rect.width;
+  MP.audio.currentTime = pct * MP.audio.duration;
+}
+
+function toggleMusicPlayer() {
+  var p = document.getElementById('musicPlayer');
+  if(!p) return;
+  MP.minimized = !MP.minimized;
+  if(MP.minimized) {
+    p.classList.add('minimized');
+  } else {
+    p.classList.remove('minimized');
+  }
+}
+
+// Init music player after DOM ready
+document.addEventListener('DOMContentLoaded', function(){
+  MP.init();
 });
 </script>
 </body>
