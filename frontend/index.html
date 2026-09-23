@@ -2229,7 +2229,9 @@ var mtStarted  = false;
 })();
 
 function onYouTubeIframeAPIReady(){
-  var t = MT_TRACKS[0];
+  // Har safar kirganda har xil (tasodifiy) qo'shiqdan boshlanadi
+  mtTrackIdx = Math.floor(Math.random() * MT_TRACKS.length);
+  var t = MT_TRACKS[mtTrackIdx];
   mtPlayer = new YT.Player('yt-player', {
     height: '1', width: '1',
     videoId: t.id,
@@ -2267,8 +2269,12 @@ function onMTReady(e){
 }
 
 function onMTState(e){
-  if(e.data === 0){ // ENDED - keyingi qoshiq
-    mtTrackIdx = (mtTrackIdx + 1) % MT_TRACKS.length;
+  if(e.data === 0){ // ENDED - keyingi tasodifiy qoshiq
+    var nextIdx = mtTrackIdx;
+    while(MT_TRACKS.length > 1 && nextIdx === mtTrackIdx){
+      nextIdx = Math.floor(Math.random() * MT_TRACKS.length);
+    }
+    mtTrackIdx = nextIdx;
     var t = MT_TRACKS[mtTrackIdx];
     mtPlayer.loadVideoById({ videoId: t.id, startSeconds: t.start });
   }
