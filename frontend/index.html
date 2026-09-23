@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VIGOR | Premium Erkaklar Kiyimi</title>
-  <meta name="description" content="VIGOR — Premium sifat, eksklyuziv modellar va hamyonbop narxlar. Erkaklar uchun zamonaviy kiyimlar do'koni.">
+  <title>Montana Uzzz | Premium Erkaklar Kiyimi</title>
+  <meta name="description" content="Montana Uzzz — Premium sifat, eksklyuziv modellar va hamyonbop narxlar. Erkaklar uchun zamonaviy kiyimlar do'koni.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,11 +87,13 @@
       filter:drop-shadow(0 0 20px rgba(212,168,67,0.0));
       animation: pl-l-in 0.6s cubic-bezier(0.16,1,0.3,1) forwards, pl-l-glow 1.5s ease-in-out 1.5s infinite alternate, pl-l-out 0.5s cubic-bezier(0.55,0,1,0.45) 3.2s forwards;
     }
-    .pl-letter:nth-child(1){animation-delay:0.35s,1.5s,3.2s}
-    .pl-letter:nth-child(2){animation-delay:0.48s,1.5s,3.2s}
-    .pl-letter:nth-child(3){animation-delay:0.61s,1.5s,3.2s}
-    .pl-letter:nth-child(4){animation-delay:0.74s,1.5s,3.2s}
-    .pl-letter:nth-child(5){animation-delay:0.87s,1.5s,3.2s}
+    .pl-letter:nth-child(1){animation-delay:0.25s,1.5s,3.2s}
+    .pl-letter:nth-child(2){animation-delay:0.36s,1.5s,3.2s}
+    .pl-letter:nth-child(3){animation-delay:0.47s,1.5s,3.2s}
+    .pl-letter:nth-child(4){animation-delay:0.58s,1.5s,3.2s}
+    .pl-letter:nth-child(5){animation-delay:0.69s,1.5s,3.2s}
+    .pl-letter:nth-child(6){animation-delay:0.80s,1.5s,3.2s}
+    .pl-letter:nth-child(7){animation-delay:0.91s,1.5s,3.2s}
     @keyframes pl-l-in  { to{opacity:1;transform:translateY(0)} }
     @keyframes pl-l-glow { to{filter:drop-shadow(0 0 12px rgba(212,168,67,0.7))} }
     @keyframes pl-l-out  { to{opacity:0;transform:translateY(-50px)} }
@@ -127,6 +129,55 @@
 
     .pl-particle { position:absolute; border-radius:50%; background:rgba(212,168,67,0.6); animation:pl-particle-anim linear infinite; }
     @keyframes pl-particle-anim { 0%{transform:translateY(0) scale(1);opacity:0.7} 100%{transform:translateY(-120px) scale(0);opacity:0} }
+
+    /* ══ GOLD COINS RAIN ══ */
+    .pl-coins-container {
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:0;
+    }
+    .pl-coin {
+      position:absolute;
+      top:-80px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background: radial-gradient(circle at 35% 35%, #FFF176, #FFD700 30%, #C49A22 65%, #8B6914 100%);
+      box-shadow:
+        0 0 8px rgba(255,215,0,0.8),
+        inset 0 2px 4px rgba(255,255,255,0.5),
+        inset 0 -2px 4px rgba(100,60,0,0.4);
+      animation: coin-fall linear forwards;
+      opacity:0;
+    }
+    .pl-coin::before {
+      content:'₿';
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      color:rgba(139,105,20,0.7);
+      font-weight:900;
+    }
+    .pl-coin::after {
+      content:'';
+      position:absolute;
+      top:3px; left:5px;
+      width:8px; height:5px;
+      background:rgba(255,255,255,0.55);
+      border-radius:50%;
+      transform:rotate(-30deg);
+    }
+    @keyframes coin-fall {
+      0%   { opacity:0; transform:translateY(0) rotateY(0deg) rotateZ(0deg); }
+      5%   { opacity:1; }
+      85%  { opacity:0.9; }
+      100% { opacity:0; transform:translateY(110vh) rotateY(720deg) rotateZ(30deg); }
+    }
 
     .main-content { opacity:0; animation:mc-in 0.8s ease 4.0s forwards; }
     @keyframes mc-in { to{opacity:1} }
@@ -336,6 +387,35 @@
       .bottom-nav { display:block; }
       .main-content { padding-bottom:72px; }
       .toast-container { bottom:88px; }
+
+      /* Navbar kichikroq */
+      .navbar { padding:8px 12px !important; }
+
+      /* Filter chips scrollable */
+      #filterBar { overflow-x:auto; -webkit-overflow-scrolling:touch; flex-wrap:nowrap !important; padding-bottom:4px; }
+      .filter-chip { white-space:nowrap; font-size:0.72rem !important; padding:6px 10px !important; }
+
+      /* Products grid — 2 ta ustun */
+      #productsGrid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
+
+      /* Karta */
+      .product-card { border-radius:12px !important; }
+      .product-card img { height:160px !important; }
+
+      /* Modal kichikroq */
+      .modal-box { padding:18px !important; border-radius:18px !important; margin:8px !important; }
+
+      /* Narx va tugma kichikroq */
+      main { padding:12px 10px 32px !important; }
+
+      /* Slider (hero) kichikroq */
+      #heroSlider { height:180px !important; }
+    }
+
+    @media (max-width: 380px) {
+      /* Kichik telefonlar uchun 2 ustun ham moslashtirish */
+      #productsGrid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
+      .product-card img { height:130px !important; }
     }
 
     /* ══ LANG SWITCHER ══ */
@@ -362,6 +442,185 @@
     .pay-tab.active { background:#D4A843; color:#1a1a1a; }
     .pay-tab:not(.active) { background:var(--bg3); color:var(--text2); }
     .qr-frame { border:3px solid #D4A843; border-radius:16px; padding:12px; display:inline-block; background:#fff; }
+
+    /* ══ MUSIC PLAYER ══ */
+    #musicPlayer {
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      z-index:9000;
+      width:280px;
+      background:linear-gradient(145deg, #0f0d08, #1a1508);
+      border:1px solid rgba(212,168,67,0.35);
+      border-radius:20px;
+      padding:16px 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,168,67,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter:blur(20px);
+      transform:translateY(120%);
+      opacity:0;
+      transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+    }
+    #musicPlayer.show {
+      transform:translateY(0);
+      opacity:1;
+    }
+    #musicPlayer.minimized {
+      width:56px;
+      height:56px;
+      padding:0;
+      border-radius:50%;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    #musicPlayer.minimized .mp-body { display:none; }
+    #musicPlayer.minimized #mpMinimizedIcon {
+      display:flex !important;
+      width:56px; height:56px;
+      align-items:center; justify-content:center;
+      font-size:1.4rem;
+      animation:mp-pulse 2s ease-in-out infinite;
+    }
+    @keyframes mp-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,0.4)} 50%{box-shadow:0 0 0 12px rgba(212,168,67,0)} }
+
+    .mp-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .mp-brand {
+      font-size:0.6rem;
+      font-weight:800;
+      letter-spacing:0.35em;
+      color:#D4A843;
+      text-transform:uppercase;
+    }
+    .mp-controls-top {
+      display:flex;
+      gap:6px;
+    }
+    .mp-btn-sm {
+      width:22px; height:22px;
+      border:none; background:rgba(212,168,67,0.12);
+      border-radius:50%; cursor:pointer;
+      color:rgba(212,168,67,0.7);
+      font-size:0.6rem;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.2s;
+    }
+    .mp-btn-sm:hover { background:rgba(212,168,67,0.25); color:#D4A843; }
+
+    /* Vinyl disc */
+    .mp-disc-wrap {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:12px;
+    }
+    .mp-disc {
+      width:52px; height:52px;
+      border-radius:50%;
+      background:conic-gradient(#1a1305 0deg 45deg, #2d2008 45deg 90deg, #1a1305 90deg 135deg, #2d2008 135deg 180deg, #1a1305 180deg 225deg, #2d2008 225deg 270deg, #1a1305 270deg 315deg, #2d2008 315deg 360deg);
+      box-shadow: 0 0 0 3px #D4A843, 0 0 0 5px #0f0d08, 0 0 20px rgba(212,168,67,0.3);
+      flex-shrink:0;
+      position:relative;
+      transition:animation 0.3s;
+    }
+    .mp-disc.spinning { animation:mp-spin 4s linear infinite; }
+    .mp-disc::after {
+      content:'';
+      position:absolute;
+      inset:35%;
+      border-radius:50%;
+      background:#D4A843;
+      box-shadow:0 0 6px rgba(212,168,67,0.5);
+    }
+    @keyframes mp-spin { to{transform:rotate(360deg)} }
+
+    .mp-track-info { flex:1; min-width:0; }
+    .mp-track-name {
+      font-size:0.75rem;
+      font-weight:700;
+      color:#f5f0e8;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      margin-bottom:3px;
+    }
+    .mp-track-sub {
+      font-size:0.6rem;
+      color:rgba(212,168,67,0.6);
+      letter-spacing:0.1em;
+    }
+
+    /* Progress bar */
+    .mp-progress {
+      width:100%;
+      height:3px;
+      background:rgba(212,168,67,0.15);
+      border-radius:2px;
+      margin-bottom:12px;
+      cursor:pointer;
+      position:relative;
+    }
+    .mp-progress-fill {
+      height:100%;
+      background:linear-gradient(90deg,#8B6914,#F0C860);
+      border-radius:2px;
+      width:0%;
+      transition:width 0.3s linear;
+    }
+
+    /* Controls */
+    .mp-controls {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .mp-btn {
+      width:36px; height:36px;
+      border:none; cursor:pointer;
+      border-radius:50%;
+      background:rgba(212,168,67,0.1);
+      color:#D4A843;
+      font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.2s;
+    }
+    .mp-btn:hover { background:rgba(212,168,67,0.25); transform:scale(1.1); }
+    .mp-btn-play {
+      width:46px; height:46px;
+      background:linear-gradient(135deg,#C49A22,#F0C860);
+      color:#0f0d08;
+      font-size:1.1rem;
+      box-shadow:0 4px 16px rgba(212,168,67,0.4);
+    }
+    .mp-btn-play:hover { background:linear-gradient(135deg,#D4A843,#FFD700); transform:scale(1.08); box-shadow:0 6px 20px rgba(212,168,67,0.6); }
+
+    /* Volume */
+    .mp-volume {
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .mp-vol-icon { font-size:0.7rem; color:rgba(212,168,67,0.5); }
+    .mp-vol-slider {
+      -webkit-appearance:none;
+      width:100%;
+      height:3px;
+      border-radius:2px;
+      background:rgba(212,168,67,0.15);
+      outline:none;
+    }
+    .mp-vol-slider::-webkit-slider-thumb {
+      -webkit-appearance:none;
+      width:12px; height:12px;
+      border-radius:50%;
+      background:#D4A843;
+      cursor:pointer;
+      box-shadow:0 0 6px rgba(212,168,67,0.5);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden">
@@ -375,15 +634,22 @@
   <div class="pl-corner pl-br"></div>
   <div class="pl-progress"></div>
   <div id="pl-particles"></div>
-  <img src="/logo.jpg" class="pl-logo" alt="VIGOR">
+  <img src="/logo.jpg" class="pl-logo" alt="Montana Uzzz">
   <div style="position:relative;">
-    <div class="pl-letters">
-      <span class="pl-letter">V</span><span class="pl-letter">I</span><span class="pl-letter">G</span><span class="pl-letter">O</span><span class="pl-letter">R</span>
+    <!-- Gold coin rain behind Montana Uzzz text -->
+    <div class="pl-coins-container" id="pl-coins"></div>
+    <div class="pl-letters" style="position:relative;z-index:2;font-size:clamp(2.5rem,9vw,6rem);">
+      <span class="pl-letter">M</span><span class="pl-letter">O</span><span class="pl-letter">N</span><span class="pl-letter">T</span><span class="pl-letter">A</span><span class="pl-letter">N</span><span class="pl-letter">A</span>
     </div>
-    <div class="pl-shimmer"></div>
+    <div class="pl-shimmer" style="z-index:3;"></div>
   </div>
   <div class="pl-line"></div>
-  <p class="pl-sub">Men's Clothing Collection</p>
+  <p class="pl-sub">Premium Men's Collection</p>
+</div>
+
+<!-- ══ BACKGROUND MUSIC (YouTube IFrame API — hidden) ══ -->
+<div id="yt-player-container" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;" aria-hidden="true">
+  <div id="yt-player"></div>
 </div>
 
 <!-- ═══ PAYMENT MODAL ═══ -->
@@ -440,7 +706,7 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
       <div>
         <label style="display:block;font-size:0.75rem;font-weight:600;color:var(--text2);margin-bottom:5px;">Kiyim nomi *</label>
-        <input type="text" id="f-title" placeholder="VIGOR Classic Shirt"
+        <input type="text" id="f-title" placeholder="Montana Uzzz Classic Shirt"
           style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.88rem;outline:none;font-family:inherit;background:var(--bg3);color:var(--text);"
           onfocus="this.style.borderColor='#C49A22'" onblur="this.style.borderColor=''">
       </div>
@@ -505,10 +771,7 @@
     <!-- Tovarlar ro'yxati -->
     <div style="border-top:1px solid var(--border);padding-top:24px;">
       <p id="adminCount" style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-bottom:12px;">Do'kondagi tovarlar (0)</p>
-      <!-- 📊 Statistika xulosa -->
-      <div id="adminStatsSummary" style="margin-bottom:14px;"></div>
       <div id="adminList" style="display:flex;flex-direction:column;gap:10px;"></div>
-
     </div>
   </div>
 </div>
@@ -574,30 +837,51 @@
       <button onclick="closeDeliveryModal()" style="width:34px;height:34px;border-radius:50%;background:var(--bg3);border:none;font-size:1rem;cursor:pointer;color:var(--text2);">&#10005;</button>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- 1. Andijon shahri -->
       <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #10b981;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 style="font-size:1rem;font-weight:700;">🏙️ Toshkent shahri</h3>
-          <span style="font-size:0.9rem;font-weight:800;color:#10b981;">BEPUL</span>
-        </div>
-        <p style="font-size:0.82rem;color:var(--text2);">100,000 so'm dan yuqori buyurtmalarda yetkazib berish bepul</p>
-        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 1–2 ish kuni ichida</p>
-      </div>
-      <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #a78bfa;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 style="font-size:1rem;font-weight:700;">🌍 Boshqa viloyatlar</h3>
+          <h3 style="font-size:1rem;font-weight:700;">🏙️ Andijon shahri</h3>
           <span style="font-size:0.9rem;font-weight:800;color:#C49A22;">25 000 so'm</span>
         </div>
-        <p style="font-size:0.82rem;color:var(--text2);">Yuk tashuvchi orqali pochta yetkazib berish</p>
-        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 2–5 ish kuni ichida</p>
+        <p style="font-size:0.82rem;color:var(--text2);">200 000 so'mdan yuqori buyurtmalarga bepul</p>
+        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 1–2 soat ichida</p>
       </div>
-      <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #ef4444;">
+
+      <!-- 2. BTS-POCHTA - Boshqa viloyatlar -->
+      <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #a78bfa;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 style="font-size:1rem;font-weight:700;">⚡ Ekspress yetkazib berish</h3>
-          <span style="font-size:0.9rem;font-weight:800;color:#ef4444;">50 000 so'm</span>
+          <h3 style="font-size:1rem;font-weight:700;">🌍 BTS-POCHTA — Boshqa viloyatlar</h3>
+          <span style="font-size:0.9rem;font-weight:800;color:#C49A22;">30–50 000 so'm</span>
         </div>
-        <p style="font-size:0.82rem;color:var(--text2);">Toshkent bo'yicha kuni bilan yetkazib berish</p>
-        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ Bugun, 3–6 soat ichida</p>
+        <p style="font-size:0.82rem;color:var(--text2);">BTS pochta xizmati orqali O'zbekiston bo'yicha yetkazib berish</p>
+        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 1–2 kun ichida dostavka</p>
+        <a href="https://bts.uz" target="_blank" style="display:inline-block;margin-top:10px;font-size:0.78rem;color:#a78bfa;font-weight:600;text-decoration:none;">🔗 bts.uz →</a>
       </div>
+
+      <!-- 3. Uzpost pochta -->
+      <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #3b82f6;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 style="font-size:1rem;font-weight:700;">📦 Uzpost pochta orqali</h3>
+          <span style="font-size:0.9rem;font-weight:800;color:#3b82f6;">20–50 000 so'm</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text2);">O'zbekiston pochta xizmati orqali yetkazib berish</p>
+        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 1–2 kun ichida dostavka</p>
+        <a href="https://uz.post" target="_blank" style="display:inline-block;margin-top:10px;font-size:0.78rem;color:#3b82f6;font-weight:600;text-decoration:none;">🔗 uz.post →</a>
+      </div>
+
+      <!-- 4. EMU pochta -->
+      <div style="background:var(--bg3);border-radius:14px;padding:18px;border-left:4px solid #f59e0b;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 style="font-size:1rem;font-weight:700;">🚀 EMU pochta</h3>
+          <span style="font-size:0.9rem;font-weight:800;color:#f59e0b;">30–50 000 so'm</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text2);">EMU express pochta xizmati orqali yetkazib berish</p>
+        <p style="font-size:0.78rem;color:var(--text3);margin-top:6px;">⏱️ 1–2 kun ichida dostavka</p>
+        <a href="https://emu.uz" target="_blank" style="display:inline-block;margin-top:10px;font-size:0.78rem;color:#f59e0b;font-weight:600;text-decoration:none;">🔗 emu.uz →</a>
+      </div>
+
+      <!-- Telegram aloqa -->
       <div style="background:linear-gradient(135deg,rgba(196,154,34,0.1),rgba(212,168,67,0.05));border:1.5px solid rgba(212,168,67,0.3);border-radius:14px;padding:16px;text-align:center;">
         <p style="font-size:0.82rem;color:var(--text2);">📞 Yetkazib berish bo'yicha savollar uchun Telegram orqali bog'laning</p>
         <button onclick="window.open('https://t.me/Aurex_111','_blank')" style="margin-top:12px;padding:10px 24px;background:#C49A22;color:#1a1a1a;border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;">✈️ @Aurex_111</button>
@@ -619,8 +903,8 @@
   <header class="navbar sticky top-0 z-50 px-4 py-3 shadow-lg" id="mainNav">
     <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
       <div style="display:flex;align-items:center;gap:12px;">
-        <img src="/logo.jpg" alt="VIGOR" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #C49A22;object-fit:cover;">
-        <span style="font-size:1.4rem;font-weight:800;letter-spacing:0.2em;color:#D4A843;">VIGOR</span>
+        <img src="/logo.jpg" alt="Montana Uzzz" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #C49A22;object-fit:cover;">
+        <span style="font-size:1.1rem;font-weight:800;letter-spacing:0.12em;color:#D4A843;">MONTANA UZZZ</span>
       </div>
 
       <div style="display:flex;align-items:center;gap:8px;">
@@ -634,6 +918,13 @@
         <!-- Dark Mode -->
         <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Dark Mode">
           <div class="dark-toggle-knob" id="darkKnob">🌙</div>
+        </button>
+
+        <!-- 🔇 Musiqa Mute Tugmasi -->
+        <button onclick="toggleMute()" id="muteNavBtn" title="Musiqa o'chirish"
+          style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
+          onmouseover="this.style.background='rgba(212,168,67,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+          🔊
         </button>
 
         <!-- Delivery Info -->
@@ -732,7 +1023,7 @@
   <div class="filter-bar sticky top-[60px] z-40 py-3 px-4 shadow-sm" id="shopSection">
     <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
       <!-- Kategoriya chips -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+      <div id="filterBar" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;">
         <button class="filter-chip active" onclick="setCategory('Barchasi')" id="cat-Barchasi">Barchasi</button>
         <button class="filter-chip" onclick="setCategory('Futbolka')" id="cat-Futbolka">👕 Futbolka</button>
         <button class="filter-chip" onclick="setCategory('Ko\'ylak')" id="cat-Ko'ylak">👔 Ko'ylak</button>
@@ -771,17 +1062,17 @@
 
   <!-- PRODUCTS GRID -->
   <main style="flex:1;max-width:1280px;margin:0 auto;padding:32px 16px;width:100%;">
-    <div id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;"></div>
+    <div id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,45vw),1fr));gap:24px;"></div>
   </main>
 
   <!-- FOOTER -->
   <footer style="background:#0a0906;color:rgba(245,240,232,0.5);text-align:center;padding:48px 24px;border-top:1px solid rgba(212,168,67,0.15);">
-    <p style="font-weight:800;font-size:1.5rem;letter-spacing:0.3em;color:#D4A843;margin-bottom:8px;">V I G O R</p>
+    <p style="font-weight:800;font-size:1.3rem;letter-spacing:0.2em;color:#D4A843;margin-bottom:8px;">MONTANA UZZZ</p>
     <p style="font-size:0.8rem;" id="footer-brand">Premium Erkaklar Kiyimi Brendi</p>
     <p style="margin-top:24px;font-size:0.68rem;letter-spacing:0.15em;color:rgba(212,168,67,0.4);">
       Developed by <strong style="color:rgba(212,168,67,0.7);">TUXTASINOV</strong>
     </p>
-    <p style="font-size:0.7rem;margin-top:8px;color:rgba(245,240,232,0.2);">© 2026 VIGOR. <span id="footer-rights">Barcha huquqlar himoyalangan.</span></p>
+    <p style="font-size:0.7rem;margin-top:8px;color:rgba(245,240,232,0.2);">© 2026 Montana Uzzz. <span id="footer-rights">Barcha huquqlar himoyalangan.</span></p>
   </footer>
 </div>
 
@@ -851,7 +1142,7 @@ var LANGS = {
     inStock: 'Mavjud', leftPieces: ' ta qoldi', pieces: ' ta', reviewWord: 'sharh',
     noReviews: "Hali sharh yo'q", reviewsSuffix: ' \u2014 Sharhlar',
     ratingSelect: 'Yulduz tanlang!', writeReview: 'Sharh yozing!',
-    reviewSubmitted: "\u2705 Sharh qo'shildi!", orderMsg: 'Salom VIGOR! Buyurtma:'
+    reviewSubmitted: "\u2705 Sharh qo'shildi!", orderMsg: 'Salom Montana Uzzz! Buyurtma:'
   },
   ru: {
     home: '\u0413\u043b\u0430\u0432\u043d\u0430\u044f', shop: '\u041c\u0430\u0433\u0430\u0437\u0438\u043d', pay: '\u041e\u043f\u043b\u0430\u0442\u0430', wish: '\u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435', cart: '\u041a\u043e\u0440\u0437\u0438\u043d\u0430',
@@ -885,7 +1176,7 @@ var LANGS = {
     inStock: '\u0412 \u043d\u0430\u043b\u0438\u0447\u0438\u0438', leftPieces: ' \u0448\u0442. \u043e\u0441\u0442\u0430\u043b\u043e\u0441\u044c', pieces: ' \u0448\u0442.', reviewWord: '\u043e\u0442\u0437.',
     noReviews: '\u041e\u0442\u0437\u044b\u0432\u043e\u0432 \u043f\u043e\u043a\u0430 \u043d\u0435\u0442', reviewsSuffix: ' \u2014 \u041e\u0442\u0437\u044b\u0432\u044b',
     ratingSelect: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u0435\u0439\u0442\u0438\u043d\u0433!', writeReview: '\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043e\u0442\u0437\u044b\u0432!',
-    reviewSubmitted: '\u2705 \u041e\u0442\u0437\u044b\u0432 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d!', orderMsg: '\u041f\u0440\u0438\u0432\u0435\u0442 VIGOR! \u0417\u0430\u043a\u0430\u0437:'
+    reviewSubmitted: '\u2705 \u041e\u0442\u0437\u044b\u0432 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d!', orderMsg: '\u041f\u0440\u0438\u0432\u0435\u0442 Montana Uzzz! \u0417\u0430\u043a\u0430\u0437:'
   },
   en: {
     home: 'Home', shop: 'Shop', pay: 'Payment', wish: 'Wishlist', cart: 'Cart',
@@ -919,7 +1210,7 @@ var LANGS = {
     inStock: 'In Stock', leftPieces: ' left', pieces: ' pcs.', reviewWord: 'review',
     noReviews: 'No reviews yet', reviewsSuffix: ' \u2014 Reviews',
     ratingSelect: 'Select a rating!', writeReview: 'Write a review!',
-    reviewSubmitted: '\u2705 Review added!', orderMsg: 'Hello VIGOR! Order:'
+    reviewSubmitted: '\u2705 Review added!', orderMsg: 'Hello Montana Uzzz! Order:'
   }
 };
 var currentLang = localStorage.getItem('vigor_lang') || 'uz';
@@ -1115,15 +1406,11 @@ function updateBnBadges(){
 // ═══════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════
-// ── Backend URL (deploy qilganda o'zgartiring) ──────
-var API_URL = 'https://vigor-shop.onrender.com';
-
-var ADMIN_PASS  = 'Vig0r@2026#shop';
+var ADMIN_PASS  = 'tukhtasinov2012';
 var products    = [];
 var cart        = JSON.parse(localStorage.getItem('vigor_cart')  || '[]');
 var wishlist    = JSON.parse(localStorage.getItem('vigor_wish')  || '[]');
 var reviews     = JSON.parse(localStorage.getItem('vigor_reviews')|| '{}');
-var stats       = JSON.parse(localStorage.getItem('vigor_stats')  || '{}'); // {id: {views:0, carts:0}}
 
 var currentImages  = [];
 var currentSlotIdx = -1;
@@ -1189,24 +1476,6 @@ function fmt(n){ return String(Math.round(Number(n))).replace(/\B(?=(\d{3})+(?!\
 // ── Cart ──────────────────────────────
 function saveCart(){ localStorage.setItem('vigor_cart', JSON.stringify(cart)); updateNavBadges(); }
 
-// ── Stats tracking ───────────────────
-function trackView(id){
-  if(!stats[id]) stats[id]={views:0,carts:0};
-  stats[id].views++;
-  localStorage.setItem('vigor_stats', JSON.stringify(stats));
-}
-function trackCart(id){
-  if(!stats[id]) stats[id]={views:0,carts:0};
-  stats[id].carts++;
-  localStorage.setItem('vigor_stats', JSON.stringify(stats));
-}
-function isNewProduct(p){
-  if(!p || !p.id) return false;
-  // Product ID is timestamp-based (Date.now())
-  var sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  return p.id > sevenDaysAgo;
-}
-
 function addToCart(id, size){
   var p = products.find(function(x){return x.id===id;});
   if(!p) return;
@@ -1220,7 +1489,6 @@ function addToCart(id, size){
   var ex = cart.find(function(x){return x.id===id && (x.size||null)===(sizeToUse||null);});
   if(ex){ ex.qty = (ex.qty||1)+1; }
   else { cart.push({id:id, qty:1, size:sizeToUse}); }
-  trackCart(id);
   saveCart();
   showToast(t('addedToCart'),'success');
 }
@@ -1385,7 +1653,6 @@ function renderReviews(){
 function openProduct(id){
   var p = products.find(function(x){return x.id===id;});
   if(!p) return;
-  trackView(id);
   window._selectedSize = null;
   var imgs = getImgs(p);
   var rs   = reviews[id]||[];
@@ -1508,9 +1775,7 @@ function renderShop(){
       imgs.map(function(_,i){ return '<div class="dot'+(i===0?' active':'')+'" onclick="event.stopPropagation();changeImg('+p.id+','+i+')"></div>'; }).join('')+
     '</div>' : '';
 
-    var isNew = isNewProduct(p);
     return '<div class="vigor-card rounded-2xl overflow-hidden flex flex-col shadow-sm cursor-pointer" onclick="openProduct('+p.id+')">'
-      +(isNew ? '<div style="position:absolute;top:0;left:0;z-index:10;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:0.6rem;font-weight:800;padding:4px 10px;border-radius:0 0 10px 0;letter-spacing:0.08em;">✨ YANGI</div>' : '')
       +'<div style="position:relative;height:260px;overflow:hidden;background:var(--bg3);">'
         +(mainImg?'<img id="card-img-'+p.id+'" src="'+mainImg+'" alt="'+p.title+'" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s,opacity 0.2s;" onmouseover="this.style.transform=\'scale(1.06)\'" onmouseout="this.style.transform=\'\'">':'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);">📦</div>')
         +(isOut?'<div class="stock-out"><span class="stock-badge">'+t('stockOut')+'</span></div>':'')
@@ -1647,13 +1912,14 @@ function onPriceFilter(val){
 }
 
 // ── Category Filter ───────────────────
-function filterCat(cat){
+function setCategory(cat){
   activeCategory = cat;
-  document.querySelectorAll('.cat-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
   var el = document.getElementById('cat-' + cat);
   if(el) el.classList.add('active');
   renderShop();
 }
+function filterCat(cat){ setCategory(cat); }
 
 // ── Search ────────────────────────────
 function onSearch(val){
@@ -1669,7 +1935,7 @@ function onSort(val){
 
 // ── API ───────────────────────────────
 function fetchProducts(){
-  fetch(API_URL+'/api/products')
+  fetch('/api/products')
     .then(function(r){return r.json();})
     .then(function(data){
       products=data;
@@ -1732,7 +1998,7 @@ function handleFileChange(e){
   var slots=grid.querySelectorAll('.img-slot');
   if(slots[idx]) slots[idx].innerHTML='<div class="loading-overlay"><div class="spinner"></div></div>';
   var fd=new FormData(); fd.append('image',file);
-  fetch(API_URL+'/api/upload',{method:'POST',body:fd})
+  fetch('/api/upload',{method:'POST',body:fd})
     .then(function(r){return r.json();})
     .then(function(d){
       if(d.url){if(idx<currentImages.length)currentImages[idx]=d.url;else currentImages.push(d.url);}
@@ -1755,7 +2021,7 @@ var CAT_COLORS = {
 var ALL_CATS = ['Futbolka',"Ko'ylak",'Shim','Kurtka','Sport','Krassofka','Loaferlar','Boshqa'];
 
 function quickCatChange(id, newCat){
-  fetch(API_URL+'/api/products/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({category:newCat})})
+  fetch('/api/products/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({category:newCat})})
     .then(function(r){return r.json();})
     .then(function(){fetchProducts();showToast('✅ Katalog: '+newCat,'success');});
 }
@@ -1784,14 +2050,6 @@ function renderAdminList(){
         +ccc.icon+' '+c+'</button>';
     }).join('');
 
-    var pStats = stats[p.id] || {views:0, carts:0};
-    var wishCount = wishlist.filter(function(wid){ return wid === p.id; }).length;
-    var statHtml = '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">'
-      +'<span style="background:rgba(59,130,246,0.12);color:#3b82f6;font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:20px;">👁 '+pStats.views+' ko\'rildi</span>'
-      +'<span style="background:rgba(16,185,129,0.12);color:#10b981;font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:20px;">🛒 '+pStats.carts+' savatga</span>'
-      +(wishCount > 0 ? '<span style="background:rgba(239,68,68,0.12);color:#ef4444;font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:20px;">❤️ '+wishCount+' sevimlida</span>' : '')
-      +(isNewProduct(p) ? '<span style="background:rgba(16,185,129,0.12);color:#059669;font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:20px;">✨ YANGI</span>' : '')
-    +'</div>';
     return '<div style="background:var(--bg3);border-radius:16px;padding:14px 14px 12px;margin-bottom:2px;">'
       +'<div style="display:flex;align-items:center;gap:12px;">'
         +'<div style="position:relative;flex-shrink:0;">'
@@ -1811,37 +2069,12 @@ function renderAdminList(){
           +'<button onclick="deleteProduct('+p.id+')" style="font-size:0.72rem;padding:6px 12px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;cursor:pointer;font-weight:600;">🗑️ O\'chir</button>'
         +'</div>'
       +'</div>'
-      +statHtml
       +'<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">'
         +'<p style="font-size:0.62rem;color:var(--text3);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">📂 Katalog:</p>'
         +'<div style="display:flex;flex-wrap:wrap;gap:4px;">'+catBtns+'</div>'
       +'</div>'
     +'</div>';
   }).join('');
-
-  // Summary stats card
-  var totalViews = products.reduce(function(s,p){ return s + (stats[p.id]||{views:0}).views; }, 0);
-  var totalCarts = products.reduce(function(s,p){ return s + (stats[p.id]||{carts:0}).carts; }, 0);
-  var topProduct = products.slice().sort(function(a,b){ return (stats[b.id]||{views:0}).views - (stats[a.id]||{views:0}).views; })[0];
-  var summaryEl = document.getElementById('adminStatsSummary');
-  if(summaryEl){
-    summaryEl.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">'
-      +'<div style="background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(59,130,246,0.06));border:1px solid rgba(59,130,246,0.2);border-radius:14px;padding:14px;text-align:center;">'
-        +'<p style="font-size:1.6rem;font-weight:800;color:#3b82f6;">'+totalViews+'</p>'
-        +'<p style="font-size:0.7rem;color:var(--text3);margin-top:2px;">Jami ko\'rishlar</p>'
-      +'</div>'
-      +'<div style="background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.06));border:1px solid rgba(16,185,129,0.2);border-radius:14px;padding:14px;text-align:center;">'
-        +'<p style="font-size:1.6rem;font-weight:800;color:#10b981;">'+totalCarts+'</p>'
-        +'<p style="font-size:0.7rem;color:var(--text3);margin-top:2px;">Savatga qo\'shimlar</p>'
-      +'</div>'
-    +'</div>'
-    +(topProduct ? '<div style="background:linear-gradient(135deg,rgba(212,168,67,0.1),rgba(212,168,67,0.05));border:1px solid rgba(212,168,67,0.25);border-radius:14px;padding:12px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">'
-      +'<span style="font-size:1.5rem;">🏆</span>'
-      +'<div><p style="font-size:0.72rem;color:var(--text3);">Eng ko\'p ko\'rilgan</p>'
-      +'<p style="font-size:0.88rem;font-weight:700;color:var(--text);">'+topProduct.title+'</p></div>'
-      +'<span style="margin-left:auto;font-size:0.72rem;font-weight:800;color:#C49A22;">'+((stats[topProduct.id]||{views:0}).views)+' 👁</span>'
-    +'</div>' : '');
-  }
 }
 
 // ── Form ──────────────────────────────
@@ -1856,7 +2089,7 @@ function submitForm(){
   if(!title||!price){alert('Kiyim nomi va narxi majburiy!');return;}
   if(!currentImages.length){alert('Kamida 1 ta rasm yuklang!');return;}
   var body={title:title,price:Number(price),images:currentImages,fabric:fabric,sizes:sizes,category:category,stock:stock};
-  var url=id?API_URL+'/api/products/'+id:API_URL+'/api/products';
+  var url=id?'/api/products/'+id:'/api/products';
   var method=id?'PUT':'POST';
   var btn=document.getElementById('f-submitBtn');
   btn.disabled=true; btn.textContent='⏳ Saqlanmoqda...';
@@ -1886,7 +2119,7 @@ function editProduct(id){
 
 function deleteProduct(id){
   if(!confirm("Bu mahsulotni o'chirmoqchimisiz?")) return;
-  fetch(API_URL+'/api/products/'+id,{method:'DELETE'})
+  fetch('/api/products/'+id,{method:'DELETE'})
     .then(function(r){return r.json();})
     .then(function(){fetchProducts();showToast('O\'chirildi','');});
 }
@@ -1925,6 +2158,29 @@ document.addEventListener('DOMContentLoaded', function(){
   var pc=document.getElementById('pl-particles');
   if(pc){ for(var i=0;i<18;i++){(function(i){var p=document.createElement('div');p.className='pl-particle';var sz=Math.random()*3+1.5;p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*80+10)+'%;bottom:'+(Math.random()*30+5)+'%;animation-duration:'+(Math.random()*2+1.5)+'s;animation-delay:'+(Math.random()*2+0.8)+'s;opacity:0';pc.appendChild(p);})(i);} }
 
+  // Gold Coins Rain
+  var coinsContainer = document.getElementById('pl-coins');
+  if(coinsContainer){
+    var coinSizes   = [18, 22, 26, 30, 34];
+    var numCoins    = 28;
+    for(var ci=0; ci<numCoins; ci++){
+      (function(ci){
+        var coin = document.createElement('div');
+        coin.className = 'pl-coin';
+        var sz   = coinSizes[Math.floor(Math.random()*coinSizes.length)];
+        var left = Math.random() * 95; // % across
+        var dur  = (Math.random() * 1.8 + 1.4).toFixed(2);   // 1.4s – 3.2s
+        var del  = (Math.random() * 2.5 + 0.4).toFixed(2);   // 0.4s – 2.9s
+        coin.style.cssText =
+          'width:'+sz+'px;height:'+sz+'px;' +
+          'left:'+left+'%;' +
+          'animation-duration:'+dur+'s;' +
+          'animation-delay:'+del+'s;';
+        coinsContainer.appendChild(coin);
+      })(ci);
+    }
+  }
+
   // Preloader exit
   setTimeout(function(){
     var loader=document.getElementById('preloader');
@@ -1946,6 +2202,105 @@ document.addEventListener('DOMContentLoaded', function(){
     if(e.key==='Escape'){closeCart();closeProduct();closeReviews();closePassModal();closeAdminModal();}
   });
 });
+
+// ── MONTANA BACKGROUND MUSIC (YouTube IFrame API) ──────────────────────────
+var MT_TRACKS = [
+  { id: 'vP-Z0VEC0RA', title: 'PAWSA & Stevie V — Dirty Cash',        start: 0  }, // Asosiy qo'shiq
+  { id: 'UoXcADETATI', title: 'Баста — Кинолента & Легенда',          start: 0  },
+  { id: '0NorGkT6_SM', title: 'Заплаканная — bekaaes remix',          start: 0  },
+  { id: 'Sjtmtd_DEKQ', title: 'NAVAI — Больше, чем ближе',            start: 60 }, // 1-minutidan
+  { id: '0tLN4ruacZQ', title: 'Ulukmanapo — Sin Nombre',              start: 0  },
+  { id: 'EL4vSs8W_SU', title: 'Miyagi & Jah Khalib — Целая Вселенная', start: 0  },
+  { id: '0FCaR9cxn08', title: 'MACAN — L',                            start: 0  }
+];
+
+var mtPlayer   = null;
+var mtMuted    = false;
+var mtTrackIdx = 0;
+var mtReady    = false;
+var mtStarted  = false;
+
+// Load YouTube IFrame API script
+(function(){
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var first = document.getElementsByTagName('script')[0];
+  first.parentNode.insertBefore(tag, first);
+})();
+
+function onYouTubeIframeAPIReady(){
+  var t = MT_TRACKS[0];
+  mtPlayer = new YT.Player('yt-player', {
+    height: '1', width: '1',
+    videoId: t.id,
+    playerVars: {
+      autoplay: 1, controls: 0, disablekb: 1,
+      fs: 0, iv_load_policy: 3, modestbranding: 1,
+      playsinline: 1, start: t.start, loop: 0
+    },
+    events: { onReady: onMTReady, onStateChange: onMTState }
+  });
+}
+
+function onMTReady(e){
+  mtReady = true;
+  try {
+    e.target.setVolume(70);
+    e.target.playVideo();
+  } catch(err){}
+
+  function startPlayback(){
+    if(!mtStarted && mtPlayer && mtPlayer.playVideo){
+      try {
+        mtPlayer.playVideo();
+        mtStarted = true;
+      } catch(err){}
+    }
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt){
+      document.removeEventListener(evt, startPlayback);
+    });
+  }
+
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt){
+    document.addEventListener(evt, startPlayback, { passive: true });
+  });
+}
+
+function onMTState(e){
+  if(e.data === 0){ // ENDED - keyingi qoshiq
+    mtTrackIdx = (mtTrackIdx + 1) % MT_TRACKS.length;
+    var t = MT_TRACKS[mtTrackIdx];
+    mtPlayer.loadVideoById({ videoId: t.id, startSeconds: t.start });
+  }
+  if(e.data === 1){ // PLAYING
+    mtStarted = true;
+    var btn = document.getElementById('muteNavBtn');
+    if(btn && !mtMuted) btn.textContent = '🔊';
+  }
+}
+
+function toggleMute(){
+  if(!mtPlayer || !mtReady) return;
+  var btn = document.getElementById('muteNavBtn');
+  if(mtMuted){
+    mtPlayer.unMute();
+    mtPlayer.setVolume(70);
+    mtPlayer.playVideo();
+    mtMuted = false;
+    if(btn){
+      btn.textContent = '🔊';
+      btn.title = "Musiqani o'chirish";
+    }
+  } else {
+    mtPlayer.mute();
+    mtMuted = true;
+    if(btn){
+      btn.textContent = '🔇';
+      btn.title = "Musiqani yoqish";
+    }
+  }
+}
+// ───────────────────────────────────────────────────────────────────
 </script>
 </body>
 </html>

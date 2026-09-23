@@ -647,43 +647,10 @@
   <p class="pl-sub">Premium Men's Collection</p>
 </div>
 
-<!-- ═══ MUSIC PLAYER ═══ -->
-<div id="musicPlayer">
-  <!-- Minimized icon (shown when collapsed) -->
-  <div id="mpMinimizedIcon" style="display:none;" onclick="toggleMusicPlayer()">🎵</div>
-  <!-- Full player body -->
-  <div class="mp-body">
-    <div class="mp-header">
-      <span class="mp-brand">🎵 Montana Uzzz Music</span>
-      <div class="mp-controls-top">
-        <button class="mp-btn-sm" onclick="toggleMusicPlayer()" title="Kichraytirish">─</button>
-      </div>
-    </div>
-    <div class="mp-disc-wrap">
-      <div class="mp-disc" id="mpDisc"></div>
-      <div class="mp-track-info">
-        <div class="mp-track-name" id="mpTrackName">Luxury Saxophone Jazz</div>
-        <div class="mp-track-sub">Montana Uzzz Premium Mix</div>
-      </div>
-    </div>
-    <div class="mp-progress" id="mpProgress" onclick="seekMusic(event)">
-      <div class="mp-progress-fill" id="mpProgressFill"></div>
-    </div>
-    <div class="mp-controls">
-      <button class="mp-btn" onclick="prevTrack()" title="Oldingi">⏮</button>
-      <button class="mp-btn mp-btn-play" id="mpPlayBtn" onclick="togglePlay()">▶</button>
-      <button class="mp-btn" onclick="nextTrack()" title="Keyingi">⏭</button>
-    </div>
-    <div class="mp-volume">
-      <span class="mp-vol-icon">🔈</span>
-      <input type="range" class="mp-vol-slider" id="mpVolSlider" min="0" max="1" step="0.01" value="0.35" oninput="setVolume(this.value)">
-      <span class="mp-vol-icon">🔊</span>
-    </div>
-  </div>
+<!-- ══ BACKGROUND MUSIC (YouTube IFrame API — hidden) ══ -->
+<div id="yt-player-container" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;" aria-hidden="true">
+  <div id="yt-player"></div>
 </div>
-
-<!-- Audio element -->
-<audio id="bgAudio" preload="none"></audio>
 
 <!-- ═══ PAYMENT MODAL ═══ -->
 <div class="pay-overlay" id="payOverlay">
@@ -951,6 +918,13 @@
         <!-- Dark Mode -->
         <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Dark Mode">
           <div class="dark-toggle-knob" id="darkKnob">🌙</div>
+        </button>
+
+        <!-- 🔇 Musiqa Mute Tugmasi -->
+        <button onclick="toggleMute()" id="muteNavBtn" title="Musiqa o'chirish"
+          style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
+          onmouseover="this.style.background='rgba(212,168,67,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+          🔊
         </button>
 
         <!-- Delivery Info -->
@@ -2229,129 +2203,104 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// ═══════════════════════════════════════
-//  MUSIC PLAYER
-// ═══════════════════════════════════════
-var MP = {
-  tracks: [
-    {
-      name: 'Luxury Saxophone Jazz',
-      url:  'https://archive.org/download/luxury-saxophone-jazz-music-in-cozy-bar-jazz-bar-background-music-for-stress-relief-relax/Luxury%20Saxophone%20Jazz%20Music%20in%20Cozy%20Bar%20%20%20Jazz%20Bar%20Background%20Music%20for%20Stress%20Relief%2C%20Relax.mp3'
-    },
-    {
-      name: 'Smooth Jazz Grooves',
-      url:  'https://archive.org/download/smooth-jazz-grooves-vol.-1-relaxing-chill-jazz-music/Smooth%20Jazz%20Grooves%20vol.1%20%28Relaxing%20Chill%20Jazz%20Music%29.mp3'
-    },
-    {
-      name: 'Cool Jazz Lounge',
-      url:  'https://archive.org/download/cool-jazz-jazz-lounge-music-playist/Cool%20Jazz%20-%20Jazz%20Lounge%20Music%20Playist.mp3'
-    }
-  ],
-  current: 0,
-  playing: false,
-  audio: null,
-  minimized: false,
+// ── MONTANA BACKGROUND MUSIC (YouTube IFrame API) ──────────────────────────
+var MT_TRACKS = [
+  { id: 'vP-Z0VEC0RA', title: 'PAWSA & Stevie V — Dirty Cash',        start: 0  }, // Asosiy qo'shiq
+  { id: 'UoXcADETATI', title: 'Баста — Кинолента & Легенда',          start: 0  },
+  { id: '0NorGkT6_SM', title: 'Заплаканная — bekaaes remix',          start: 0  },
+  { id: 'Sjtmtd_DEKQ', title: 'NAVAI — Больше, чем ближе',            start: 60 }, // 1-minutidan
+  { id: '0tLN4ruacZQ', title: 'Ulukmanapo — Sin Nombre',              start: 0  },
+  { id: 'EL4vSs8W_SU', title: 'Miyagi & Jah Khalib — Целая Вселенная', start: 0  },
+  { id: '0FCaR9cxn08', title: 'MACAN — L',                            start: 0  }
+];
 
-  init: function() {
-    this.audio = document.getElementById('bgAudio');
-    if (!this.audio) return;
-    this.audio.volume = 0.35;
-    this.audio.addEventListener('timeupdate', function(){
-      if(!MP.audio.duration) return;
-      var pct = (MP.audio.currentTime / MP.audio.duration) * 100;
-      var fill = document.getElementById('mpProgressFill');
-      if(fill) fill.style.width = pct + '%';
+var mtPlayer   = null;
+var mtMuted    = false;
+var mtTrackIdx = 0;
+var mtReady    = false;
+var mtStarted  = false;
+
+// Load YouTube IFrame API script
+(function(){
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var first = document.getElementsByTagName('script')[0];
+  first.parentNode.insertBefore(tag, first);
+})();
+
+function onYouTubeIframeAPIReady(){
+  var t = MT_TRACKS[0];
+  mtPlayer = new YT.Player('yt-player', {
+    height: '1', width: '1',
+    videoId: t.id,
+    playerVars: {
+      autoplay: 1, controls: 0, disablekb: 1,
+      fs: 0, iv_load_policy: 3, modestbranding: 1,
+      playsinline: 1, start: t.start, loop: 0
+    },
+    events: { onReady: onMTReady, onStateChange: onMTState }
+  });
+}
+
+function onMTReady(e){
+  mtReady = true;
+  try {
+    e.target.setVolume(70);
+    e.target.playVideo();
+  } catch(err){}
+
+  function startPlayback(){
+    if(!mtStarted && mtPlayer && mtPlayer.playVideo){
+      try {
+        mtPlayer.playVideo();
+        mtStarted = true;
+      } catch(err){}
+    }
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt){
+      document.removeEventListener(evt, startPlayback);
     });
-    this.audio.addEventListener('ended', function(){ MP.nextTrack(); });
-    this.loadTrack(0);
-    // Show player after preloader exits
-    setTimeout(function(){
-      var p = document.getElementById('musicPlayer');
-      if(p) p.classList.add('show');
-    }, 4200);
-  },
+  }
 
-  loadTrack: function(idx) {
-    this.current = idx;
-    var t = this.tracks[idx];
-    var tn = document.getElementById('mpTrackName');
-    if(tn) tn.textContent = t.name;
-    this.audio.src = t.url;
-    if(this.playing) {
-      this.audio.play().catch(function(){});
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt){
+    document.addEventListener(evt, startPlayback, { passive: true });
+  });
+}
+
+function onMTState(e){
+  if(e.data === 0){ // ENDED - keyingi qoshiq
+    mtTrackIdx = (mtTrackIdx + 1) % MT_TRACKS.length;
+    var t = MT_TRACKS[mtTrackIdx];
+    mtPlayer.loadVideoById({ videoId: t.id, startSeconds: t.start });
+  }
+  if(e.data === 1){ // PLAYING
+    mtStarted = true;
+    var btn = document.getElementById('muteNavBtn');
+    if(btn && !mtMuted) btn.textContent = '🔊';
+  }
+}
+
+function toggleMute(){
+  if(!mtPlayer || !mtReady) return;
+  var btn = document.getElementById('muteNavBtn');
+  if(mtMuted){
+    mtPlayer.unMute();
+    mtPlayer.setVolume(70);
+    mtPlayer.playVideo();
+    mtMuted = false;
+    if(btn){
+      btn.textContent = '🔊';
+      btn.title = "Musiqani o'chirish";
+    }
+  } else {
+    mtPlayer.mute();
+    mtMuted = true;
+    if(btn){
+      btn.textContent = '🔇';
+      btn.title = "Musiqani yoqish";
     }
   }
-};
-
-function togglePlay() {
-  var btn = document.getElementById('mpPlayBtn');
-  var disc = document.getElementById('mpDisc');
-  if (!MP.audio) return;
-  if (MP.playing) {
-    MP.audio.pause();
-    MP.playing = false;
-    if(btn) btn.innerHTML = '▶';
-    if(disc) disc.classList.remove('spinning');
-  } else {
-    MP.audio.play().then(function(){
-      MP.playing = true;
-      if(btn) btn.innerHTML = '⏸';
-      if(disc) disc.classList.add('spinning');
-    }).catch(function(){ console.log('Audio play error'); });
-  }
 }
-
-function nextTrack() {
-  var next = (MP.current + 1) % MP.tracks.length;
-  MP.loadTrack(next);
-  if(MP.playing) {
-    MP.audio.play().catch(function(){});
-    document.getElementById('mpDisc').classList.add('spinning');
-    document.getElementById('mpPlayBtn').innerHTML = '⏸';
-  }
-}
-
-function prevTrack() {
-  if(MP.audio.currentTime > 3) {
-    MP.audio.currentTime = 0;
-    return;
-  }
-  var prev = (MP.current - 1 + MP.tracks.length) % MP.tracks.length;
-  MP.loadTrack(prev);
-  if(MP.playing) {
-    MP.audio.play().catch(function(){});
-    document.getElementById('mpDisc').classList.add('spinning');
-    document.getElementById('mpPlayBtn').innerHTML = '⏸';
-  }
-}
-
-function setVolume(val) {
-  if(MP.audio) MP.audio.volume = parseFloat(val);
-}
-
-function seekMusic(e) {
-  var bar = document.getElementById('mpProgress');
-  if(!bar || !MP.audio || !MP.audio.duration) return;
-  var rect = bar.getBoundingClientRect();
-  var pct = (e.clientX - rect.left) / rect.width;
-  MP.audio.currentTime = pct * MP.audio.duration;
-}
-
-function toggleMusicPlayer() {
-  var p = document.getElementById('musicPlayer');
-  if(!p) return;
-  MP.minimized = !MP.minimized;
-  if(MP.minimized) {
-    p.classList.add('minimized');
-  } else {
-    p.classList.remove('minimized');
-  }
-}
-
-// Init music player after DOM ready
-document.addEventListener('DOMContentLoaded', function(){
-  MP.init();
-});
+// ───────────────────────────────────────────────────────────────────
 </script>
 </body>
 </html>
