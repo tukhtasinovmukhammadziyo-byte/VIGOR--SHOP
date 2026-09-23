@@ -358,38 +358,83 @@
     /* ══ EMPTY STATE ══ */
     .empty-state { grid-column:1/-1; text-align:center; padding:64px 24px; background:var(--card-bg); border-radius:20px; border:1px dashed var(--border); }
 
+    /* ══ NAV ICON BUTTONS ══ */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .nav-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(212,168,67,0.3);
+      color: #D4A843;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .nav-icon-btn:hover {
+      background: rgba(212,168,67,0.22);
+    }
+
     /* ══ BOTTOM NAV (mobil) ══ */
     .bottom-nav {
       display:none;
       position:fixed; bottom:0; left:0; right:0; z-index:200;
       background:var(--nav-bg); backdrop-filter:blur(20px);
       border-top:1px solid rgba(212,168,67,0.2);
-      padding:8px 0 env(safe-area-inset-bottom, 8px);
+      padding: 6px 0 max(6px, env(safe-area-inset-bottom, 6px));
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.35);
     }
-    .bottom-nav-inner { display:flex; justify-content:space-around; align-items:center; }
+    .bottom-nav-inner {
+      display:flex; justify-content:space-around; align-items:center;
+      max-width: 600px; margin: 0 auto;
+    }
     .bn-item {
-      display:flex; flex-direction:column; align-items:center; gap:3px;
-      padding:6px 16px; border:none; background:transparent;
-      color:rgba(212,168,67,0.5); cursor:pointer; transition:color 0.2s; font-family:inherit;
-      position:relative;
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      padding:4px 6px; border:none; background:transparent;
+      color:rgba(212,168,67,0.6); cursor:pointer; transition:color 0.2s, transform 0.15s; font-family:inherit;
+      position:relative; min-width: 42px;
     }
-    .bn-item.active { color:#D4A843; }
-    .bn-item-icon { font-size:1.3rem; }
-    .bn-item-label { font-size:0.6rem; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+    .bn-item:active { transform: scale(0.92); }
+    .bn-item.active { color:#D4A843; font-weight:700; }
+    .bn-item-icon { font-size:1.15rem; line-height:1; }
+    .bn-item-label { font-size:0.58rem; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; }
     .bn-badge {
-      position:absolute; top:2px; right:8px;
+      position:absolute; top:1px; right:4px;
       background:#ef4444; color:#fff; font-size:0.55rem; font-weight:700;
-      width:16px; height:16px; border-radius:50%; display:none;
+      width:15px; height:15px; border-radius:50%; display:none;
       align-items:center; justify-content:center;
     }
     .bn-badge.show { display:flex; }
+
     @media (max-width: 768px) {
       .bottom-nav { display:block; }
-      .main-content { padding-bottom:72px; }
+      .main-content { padding-bottom:76px; }
       .toast-container { bottom:88px; }
 
-      /* Navbar kichikroq */
-      .navbar { padding:8px 12px !important; }
+      /* Navbar mobil moslashuvi */
+      .navbar { padding:8px 10px !important; }
+      #navBrand { gap:8px !important; }
+      #navBrand span { font-size:0.92rem !important; letter-spacing:0.08em !important; }
+      #navLogoImg { width:30px !important; height:30px !important; }
+
+      .nav-actions { gap:4px !important; }
+      .nav-icon-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.9rem !important;
+      }
+      .lang-switcher { padding:2px !important; gap:1px !important; }
+      .lang-btn { padding:3px 5px !important; font-size:0.62rem !important; }
 
       /* Filter chips scrollable */
       #filterBar { overflow-x:auto; -webkit-overflow-scrolling:touch; flex-wrap:nowrap !important; padding-bottom:4px; }
@@ -403,7 +448,7 @@
       .product-card img { height:160px !important; }
 
       /* Modal kichikroq */
-      .modal-box { padding:18px !important; border-radius:18px !important; margin:8px !important; }
+      .modal-box { padding:18px !important; border-radius:18px !important; margin:8px !important; max-width:96vw !important; }
 
       /* Narx va tugma kichikroq */
       main { padding:12px 10px 32px !important; }
@@ -412,10 +457,26 @@
       #heroSlider { height:180px !important; }
     }
 
-    @media (max-width: 380px) {
-      /* Kichik telefonlar uchun 2 ustun ham moslashtirish */
-      #productsGrid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
-      .product-card img { height:130px !important; }
+    @media (max-width: 480px) {
+      .navbar { padding:6px 6px !important; }
+      #navBrand span { font-size:0.8rem !important; letter-spacing:0.04em !important; }
+      #navLogoImg { width:26px !important; height:26px !important; }
+      .nav-actions { gap:3px !important; }
+      .nav-icon-btn {
+        width: 29px !important;
+        height: 29px !important;
+        font-size: 0.82rem !important;
+      }
+      .lang-btn { padding:2px 4px !important; font-size:0.56rem !important; }
+
+      .bn-item { padding:3px 3px !important; min-width:36px !important; }
+      .bn-item-icon { font-size:1.05rem !important; }
+      .bn-item-label { font-size:0.52rem !important; }
+    }
+
+    @media (max-width: 360px) {
+      /* Juda kichik ekranlarda logotip qoladi, matn yashiriladi — hamma tugmalar sig'ishi uchun */
+      #navBrand span { display:none !important; }
     }
 
     /* ══ LANG SWITCHER ══ */
@@ -907,7 +968,7 @@
         <span style="font-size:1.1rem;font-weight:800;letter-spacing:0.12em;color:#D4A843;">MONTANA UZZZ</span>
       </div>
 
-      <div style="display:flex;align-items:center;gap:8px;">
+      <div class="nav-actions">
         <!-- Lang Switcher -->
         <div class="lang-switcher" id="langSwitcher">
           <button class="lang-btn active" id="lang-uz" onclick="setLang('uz')">UZ</button>
@@ -916,43 +977,35 @@
         </div>
 
         <!-- Dark Mode -->
-        <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Dark Mode">
+        <button class="dark-toggle nav-icon-btn" id="darkToggle" onclick="toggleDark()" title="Dark Mode">
           <div class="dark-toggle-knob" id="darkKnob">🌙</div>
         </button>
 
         <!-- 🔇 Musiqa Mute Tugmasi -->
-        <button onclick="toggleMute()" id="muteNavBtn" title="Musiqa o'chirish"
-          style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
-          onmouseover="this.style.background='rgba(212,168,67,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        <button onclick="toggleMute()" id="muteNavBtn" class="nav-icon-btn" title="Musiqa o'chirish">
           🔊
         </button>
 
         <!-- Delivery Info -->
-        <button onclick="openDeliveryModal()" id="deliveryNavBtn" title="Yetkazib berish"
-          style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
-          onmouseover="this.style.background='rgba(212,168,67,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        <button onclick="openDeliveryModal()" id="deliveryNavBtn" class="nav-icon-btn" title="Yetkazib berish">
           🚚
         </button>
 
         <!-- Wishlist (desktop) -->
-        <button onclick="showWishlist()" id="wishlistNavBtn"
-          style="position:relative;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
-          title="Sevimlilar">
+        <button onclick="showWishlist()" id="wishlistNavBtn" class="nav-icon-btn" title="Sevimlilar">
           ❤️
           <span id="wishlistCount" class="cart-count"></span>
         </button>
 
         <!-- Cart (desktop) -->
-        <button onclick="openCart()" id="cartNavBtn"
-          style="position:relative;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(212,168,67,0.3);color:#D4A843;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;"
-          title="Savat">
+        <button onclick="openCart()" id="cartNavBtn" class="nav-icon-btn" title="Savat">
           🛒
           <span id="cartCount" class="cart-count"></span>
         </button>
 
         <!-- Admin (yashirin — faqat URL orqali) -->
         <button id="adminNavBtn" onclick="openPassModal()"
-          style="display:none;background:#D4A843;color:#1a1a1a;padding:9px 18px;border:none;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:all 0.2s;"
+          style="display:none;background:#D4A843;color:#1a1a1a;padding:8px 14px;border:none;border-radius:10px;font-size:0.75rem;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:all 0.2s;"
           onmouseover="this.style.background='#C49A22'" onmouseout="this.style.background='#D4A843'">
           🔑 Admin
         </button>
@@ -1087,6 +1140,10 @@
       <span class="bn-item-icon">👕</span>
       <span class="bn-item-label" id="bn-lbl-shop">Do'kon</span>
     </button>
+    <button class="bn-item" id="bn-delivery" onclick="openDeliveryModal()">
+      <span class="bn-item-icon">🚚</span>
+      <span class="bn-item-label" id="bn-lbl-delivery">Yetkazish</span>
+    </button>
     <button class="bn-item" id="bn-pay" onclick="openPayModal()">
       <span class="bn-item-icon">💳</span>
       <span class="bn-item-label" id="bn-lbl-pay">To'lov</span>
@@ -1101,6 +1158,10 @@
       <span class="bn-item-label" id="bn-lbl-cart">Savat</span>
       <span class="bn-badge" id="bnCartBadge"></span>
     </button>
+    <button class="bn-item" id="bn-mute" onclick="toggleMute()">
+      <span class="bn-item-icon" id="bnMuteIcon">🔊</span>
+      <span class="bn-item-label" id="bn-lbl-mute">Musiqa</span>
+    </button>
   </div>
 </nav>
 
@@ -1112,6 +1173,7 @@
 var LANGS = {
   uz: {
     home: 'Asosiy', shop: "Do'kon", pay: "To'lov", wish: 'Sevimli', cart: 'Savat',
+    delivery: 'Yetkazish', music: 'Musiqa',
     addCart: '🛒 Savatga', telegram: '✈️ Telegram', reviews: '⭐ Sharhlar',
     searchPlaceholder: '🔍 Qidirish...', sortLabel: 'Saralash',
     priceAsc: "Narx: arzondan", priceDesc: "Narx: qimmatdan",
@@ -1146,6 +1208,7 @@ var LANGS = {
   },
   ru: {
     home: '\u0413\u043b\u0430\u0432\u043d\u0430\u044f', shop: '\u041c\u0430\u0433\u0430\u0437\u0438\u043d', pay: '\u041e\u043f\u043b\u0430\u0442\u0430', wish: '\u0418\u0437\u0431\u0440\u0430\u043d\u043d\u043e\u0435', cart: '\u041a\u043e\u0440\u0437\u0438\u043d\u0430',
+    delivery: '\u0414\u043e\u0441\u0442\u0430\u0432\u043a\u0430', music: '\u041c\u0443\u0437\u044b\u043a\u0430',
     addCart: '\ud83d\uded2 \u0412 \u043a\u043e\u0440\u0437\u0438\u043d\u0443', telegram: '\u2708\ufe0f Telegram', reviews: '\u2b50 \u041e\u0442\u0437\u044b\u0432\u044b',
     searchPlaceholder: '\ud83d\udd0d \u041f\u043e\u0438\u0441\u043a...', sortLabel: '\u0421\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0430',
     priceAsc: '\u0426\u0435\u043d\u0430: \u043f\u043e \u0432\u043e\u0437\u0440\u0430\u0441\u0442\u0430\u043d\u0438\u044e', priceDesc: '\u0426\u0435\u043d\u0430: \u043f\u043e \u0443\u0431\u044b\u0432\u0430\u043d\u0438\u044e',
@@ -1180,6 +1243,7 @@ var LANGS = {
   },
   en: {
     home: 'Home', shop: 'Shop', pay: 'Payment', wish: 'Wishlist', cart: 'Cart',
+    delivery: 'Delivery', music: 'Music',
     addCart: '\ud83d\uded2 Add to Cart', telegram: '\u2708\ufe0f Telegram', reviews: '\u2b50 Reviews',
     searchPlaceholder: '\ud83d\udd0d Search...', sortLabel: 'Sort',
     priceAsc: 'Price: Low to High', priceDesc: 'Price: High to Low',
@@ -1231,9 +1295,11 @@ function applyLangUI(){
   // Bottom nav labels
   var lh=document.getElementById('bn-lbl-home'); if(lh) lh.textContent=L.home;
   var ls=document.getElementById('bn-lbl-shop'); if(ls) ls.textContent=L.shop;
+  var ld=document.getElementById('bn-lbl-delivery'); if(ld) ld.textContent=L.delivery;
   var lp=document.getElementById('bn-lbl-pay');  if(lp) lp.textContent=L.pay;
   var lw=document.getElementById('bn-lbl-wish'); if(lw) lw.textContent=L.wish;
   var lc=document.getElementById('bn-lbl-cart'); if(lc) lc.textContent=L.cart;
+  var lm=document.getElementById('bn-lbl-mute'); if(lm) lm.textContent=L.music;
   // Search
   var si=document.getElementById('searchInput'); if(si) si.placeholder=L.searchPlaceholder;
   // Sort
@@ -2299,13 +2365,18 @@ function onMTState(e){
   if(e.data === 1){ // PLAYING
     mtStarted = true;
     var btn = document.getElementById('muteNavBtn');
-    if(btn && !mtMuted) btn.textContent = '🔊';
+    var bnIcon = document.getElementById('bnMuteIcon');
+    if(!mtMuted){
+      if(btn) btn.textContent = '🔊';
+      if(bnIcon) bnIcon.textContent = '🔊';
+    }
   }
 }
 
 function toggleMute(){
   if(!mtPlayer || !mtReady) return;
   var btn = document.getElementById('muteNavBtn');
+  var bnIcon = document.getElementById('bnMuteIcon');
   if(mtMuted){
     mtPlayer.unMute();
     mtPlayer.setVolume(70);
@@ -2315,6 +2386,7 @@ function toggleMute(){
       btn.textContent = '🔊';
       btn.title = "Musiqani o'chirish";
     }
+    if(bnIcon) bnIcon.textContent = '🔊';
   } else {
     mtPlayer.mute();
     mtMuted = true;
@@ -2322,6 +2394,7 @@ function toggleMute(){
       btn.textContent = '🔇';
       btn.title = "Musiqani yoqish";
     }
+    if(bnIcon) bnIcon.textContent = '🔇';
   }
 }
 // ───────────────────────────────────────────────────────────────────
