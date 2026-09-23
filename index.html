@@ -902,8 +902,8 @@
   <!-- NAVBAR -->
   <header class="navbar sticky top-0 z-50 px-4 py-3 shadow-lg" id="mainNav">
     <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <img src="/logo.jpg" alt="Montana Uzzz" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #C49A22;object-fit:cover;">
+      <div style="display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;" id="navBrand" onclick="onLogoClick()" title="Montana Uzzz">
+        <img src="/logo.jpg" alt="Montana Uzzz" id="navLogoImg" style="width:36px;height:36px;border-radius:8px;border:1.5px solid #C49A22;object-fit:cover;">
         <span style="font-size:1.1rem;font-weight:800;letter-spacing:0.12em;color:#D4A843;">MONTANA UZZZ</span>
       </div>
 
@@ -1359,33 +1359,52 @@ function updateBnBadges(){
 
 // ═══════════════════════════════════════
 //  YASHIRIN ADMIN KIRISH
-//  1) Logo ustiga 7 marta tez bosish
-//  2) Klaviatura: ↑ ↑ ↓ ↓ a d m i n [Enter]
+//  1) Logo yoki "MONTANA UZZZ" ustiga 7 marta bosish
+//  2) URL orqali: sayt.com/#admin yoki sayt.com/?admin=1
+//  3) Klaviatura: ↑ ↑ ↓ ↓ a d m i n [Enter]
 // ═══════════════════════════════════════
-(function setupSecretAdmin(){
-
-  // ── 1. LOGO 7x BOSISH ─────────────────
-  var logoClickCount = 0;
-  var logoClickTimer = null;
-  function onLogoClick(){
-    logoClickCount++;
-    clearTimeout(logoClickTimer);
-    if(logoClickCount >= 7){
-      logoClickCount = 0;
-      openPassModal();
-      return;
-    }
-    logoClickTimer = setTimeout(function(){ logoClickCount = 0; }, 1800);
+var logoClickCount = 0;
+var logoClickTimer = null;
+function onLogoClick(e){
+  if(e && e.stopPropagation) e.stopPropagation();
+  logoClickCount++;
+  clearTimeout(logoClickTimer);
+  if(logoClickCount >= 7){
+    logoClickCount = 0;
+    openPassModal();
+    return;
   }
-  // navbar logo + preloader logo
+  logoClickTimer = setTimeout(function(){ logoClickCount = 0; }, 3000);
+}
+window.onLogoClick = onLogoClick;
+
+(function setupSecretAdmin(){
   document.addEventListener('DOMContentLoaded', function(){
-    var logos = document.querySelectorAll('img[alt="VIGOR"]');
-    logos.forEach(function(logo){ logo.addEventListener('click', onLogoClick); logo.style.cursor='pointer'; });
-    // VIGOR text in navbar
-    var vigText = document.querySelector('[style*="letter-spacing:0.2em"][style*="VIGOR"], span[style*="VIGOR"]');
-    // Also attach to the "VIGOR" span in navbar
-    var navLogo = document.querySelector('header span[style*="D4A843"]');
-    if(navLogo) navLogo.addEventListener('click', onLogoClick);
+    // Logo va matnlarga click qo'shish
+    var selectors = [
+      '#navBrand',
+      '#navLogoImg',
+      'img[src*="logo"]',
+      'img[alt*="Montana"]',
+      'img[alt*="VIGOR"]',
+      '.navbar span',
+      '#mainNav span'
+    ];
+    selectors.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el){
+        el.addEventListener('click', onLogoClick);
+        el.style.cursor = 'pointer';
+      });
+    });
+
+    // URL orqali ochish: sayt.com/#admin yoki sayt.com/?admin=1
+    if(window.location.hash === '#admin' || window.location.search.indexOf('admin') !== -1){
+      setTimeout(function(){
+        openPassModal();
+        var ab = document.getElementById('adminNavBtn');
+        if(ab) ab.style.display = 'inline-block';
+      }, 500);
+    }
   });
 
   // ── 2. KONAMI KLAVIATURA KODI ──────────
@@ -1400,7 +1419,6 @@ function updateBnBadges(){
       openPassModal();
     }
   });
-
 })();
 
 // ═══════════════════════════════════════
